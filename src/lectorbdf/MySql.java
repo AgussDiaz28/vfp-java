@@ -15,9 +15,9 @@ public class MySql {
 	public Connection getConnection() throws Exception{
 		
         try{ 
-           String url = "jbdc:mysql://localhost:8889/comandas";
-           String username = "root";
-           String password = "root";
+           String url = "jdbc:mysql://localhost:8889/comandas?";
+           String username = "user=root&";
+           String password = "password=root";
  
            System.out.println("Loading driver...");
 
@@ -27,12 +27,12 @@ public class MySql {
            } catch (ClassNotFoundException e) {
                throw new IllegalStateException("Cannot find the driver in the classpath!", e);
            }
-           
+          
            System.out.println("Connecting database...");
-
-           try (Connection connection = DriverManager.getConnection(url, username, password)) {
+           try (Connection connection = DriverManager.getConnection(url + username + password)) {
                System.out.println("Database connected!");
            } catch (SQLException e) {
+	        	   System.out.println("SQLException: " + e.getMessage());
                throw new IllegalStateException("Cannot connect the database!", e);
            }
 
